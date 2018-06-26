@@ -50,6 +50,8 @@ defmodule Exred.Node.Rpiphoto do
       attrs: %{options: ["average", "spot", "backlit", "matrix"]}
     },
   }
+  @ui_attributes %{left_icon: "photo_camera"}
+  
   
   use Exred.Library.NodePrototype
   alias Porcelain.Result

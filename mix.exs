@@ -4,7 +4,7 @@ defmodule Exred.Node.Rpiphoto.Mixfile do
   def project do
     [
       app: :exred_node_rpiphoto,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
       deps: deps(),
