@@ -6,18 +6,18 @@ defmodule Exred.Node.Rpiphoto do
   @name "RPI Photo"
   @category "raspberry-pi"
   @info @moduledoc
-  @config @{
+  @config %{
     name: %{
       info: "Node name",
       value: @name,
       type: "string",
-      attrs: @{max: 25}
+      attrs: %{max: 25}
     },
     filename: %{
       info: "Output file name",
       value: "/tmp/image-%04d",
       type: "string",
-      attrs: @{max: 25}
+      attrs: %{max: 25}
     },
     width: %{
       info: "image width",
@@ -47,9 +47,14 @@ defmodule Exred.Node.Rpiphoto do
       info: "Set metering mode",
       type: "selector",
       value: "average",
-      attrs: %{options:["average", "spot", "backlit", "matrix"]}
+      attrs: %{options: ["average", "spot", "backlit", "matrix"]}
     },
   }
+  
+  use Exred.Library.NodePrototype
+  alias Porcelain.Result
+  require Logger
+
   
   @impl true
   def handle_msg(msg, state) do
@@ -84,11 +89,7 @@ defmodule Exred.Node.Rpiphoto do
     
     res = %Result{out: output, status: status} = Porcelain.shell( cmd )
     Logger.info "#{__MODULE__} raspistill return status: #{inspect status}"
-    
-    out = case status do
-      0 -> Map.put(msg, :payload, filename)
-      _ -> Map.put(msg, :payload, :error)
-    end
+    out = put_in msg, [:payload, :exit_status], status
 
     {out, state}
   end
