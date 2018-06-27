@@ -11,7 +11,7 @@ defmodule Exred.Node.Rpiphoto do
     height    :: String.t,
     horizontal_flip   :: String.t,
     vertical_flip     :: String.t,
-    metering  :: String.t,
+    metering  :: String.t
   }
   ```
   All of the above are optional. Payload is ignored. The other keys override the corresponding node config values.
@@ -26,7 +26,7 @@ defmodule Exred.Node.Rpiphoto do
   """
 
   @name "RPI Photo"
-  @category "raspberryPi"
+  @category "raspberry pi"
   @info @moduledoc
   @config %{
     name: %{
@@ -39,7 +39,7 @@ defmodule Exred.Node.Rpiphoto do
       info: "Output file name",
       value: "/tmp/image-%04d",
       type: "string",
-      attrs: %{max: 25}
+      attrs: %{max: 50}
     },
     width: %{
       info: "image width",
