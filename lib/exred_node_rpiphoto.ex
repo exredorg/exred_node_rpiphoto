@@ -1,6 +1,28 @@
 defmodule Exred.Node.Rpiphoto do
   @moduledoc """
   Takes a photo using the Raspberry PI's camera module
+  
+  **Incoming message format**  
+  ```elixir
+  msg = %{
+    payload   :: any,
+    filename  :: String.t,
+    width     :: String.t,
+    height    :: String.t,
+    horizontal_flip   :: String.t,
+    vertical_flip     :: String.t,
+    metering  :: String.t,
+  }
+  ```
+  All of the above are optional. Payload is ignored. The other keys override the corresponding node config values.
+
+  **Outgoing message format**
+  ```elixir
+  msg = %{
+    payload :: number
+  }
+  ```
+  Payload is the exit status of the shell command.
   """
 
   @name "RPI Photo"
@@ -52,7 +74,7 @@ defmodule Exred.Node.Rpiphoto do
   }
   @ui_attributes %{
     left_icon: "photo_camera",
-    config_order: [:name, :filename, :width, :height]
+    config_order: [:name, :metering, :width, :height, :horizontal_flip, :vertical_flip, :filename]
   }
   
   
@@ -94,7 +116,7 @@ defmodule Exred.Node.Rpiphoto do
     
     res = %Result{out: output, status: status} = Porcelain.shell( cmd )
     Logger.info "#{__MODULE__} raspistill return status: #{inspect status}"
-    out = put_in msg, [:payload, :exit_status], status
+    out = Map.put msg, :payload, status
 
     {out, state}
   end
