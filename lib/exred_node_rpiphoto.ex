@@ -4,7 +4,7 @@ defmodule Exred.Node.Rpiphoto do
   """
 
   @name "RPI Photo"
-  @category "raspberry-pi"
+  @category "raspberryPi"
   @info @moduledoc
   @config %{
     name: %{
@@ -50,7 +50,10 @@ defmodule Exred.Node.Rpiphoto do
       attrs: %{options: ["average", "spot", "backlit", "matrix"]}
     },
   }
-  @ui_attributes %{left_icon: "photo_camera"}
+  @ui_attributes %{
+    left_icon: "photo_camera",
+    config_order: [:name, :filename, :width, :height]
+  }
   
   
   use Exred.Library.NodePrototype
