@@ -84,7 +84,7 @@ defmodule Exred.Node.Rpiphoto do
 
   
   @impl true
-  def handle_msg(msg, state) do
+  def handle_msg(%{} = msg, state) do
     filename = Map.get msg, :filename, state.config.filename.value
     width    = Map.get msg, :width, state.config.width.value
     height   = Map.get msg, :height, state.config.height.value
@@ -121,5 +121,9 @@ defmodule Exred.Node.Rpiphoto do
     {out, state}
   end
 
+  def handle_msg(msg, state) do
+    Logger.warn "UNHANDLED MSG node: #{state.node_id} #{get_in(state.config, [:name, :value])} msg: #{inspect msg}"
+    {nil, state}
+  end
 
 end
