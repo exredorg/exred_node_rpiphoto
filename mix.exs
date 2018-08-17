@@ -1,6 +1,9 @@
 defmodule Exred.Node.Rpiphoto.Mixfile do
   use Mix.Project
 
+
+  @description "Takes photos with the RaspberryPi Camera module"
+
   def project do
     [
       app: :exred_node_rpiphoto,
@@ -8,10 +11,12 @@ defmodule Exred.Node.Rpiphoto.Mixfile do
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
       deps: deps(),
+      description: @description,
+      package: package(),
       aliases: aliases()
     ]
   end
-  
+
   defp aliases do
     [
       test: "test --no-start"
@@ -27,12 +32,12 @@ defmodule Exred.Node.Rpiphoto.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:exred_library, "~> 0.1.11"},
       {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
+      {:exred_library, "~> 0.1.11"},
       {:porcelain, "~> 2.0"}
     ]
   end
-  
+
   defp package do
     %{
       licenses: ["MIT"],
