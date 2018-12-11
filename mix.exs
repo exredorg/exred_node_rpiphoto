@@ -1,15 +1,15 @@
 defmodule Exred.Node.Rpiphoto.Mixfile do
   use Mix.Project
 
-
   @description "Takes photos with the RaspberryPi Camera module"
+  @version File.read!("VERSION") |> String.trim()
 
   def project do
     [
       app: :exred_node_rpiphoto,
-      version: "0.1.6",
+      version: @version,
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: @description,
       package: package(),
@@ -22,6 +22,7 @@ defmodule Exred.Node.Rpiphoto.Mixfile do
       test: "test --no-start"
     ]
   end
+
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
@@ -32,8 +33,8 @@ defmodule Exred.Node.Rpiphoto.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
-      {:exred_library, "~> 0.1.11"},
+      {:ex_doc, "~> 0.19.0", only: :dev, runtime: false},
+      {:exred_nodeprototype, "~> 0.2"},
       {:porcelain, "~> 2.0"}
     ]
   end
@@ -43,10 +44,10 @@ defmodule Exred.Node.Rpiphoto.Mixfile do
       licenses: ["MIT"],
       maintainers: ["Zsolt Keszthelyi"],
       links: %{
-        "GitHub" => "https://github.com/exredorg/exred_node_rpiphoto",
+        "GitHub" => "https://github.com/exredorg/exred_node_rpiphoto.git",
         "Exred" => "http://exred.org"
       },
-      files: ["lib", "mix.exs", "README.md", "LICENSE"]
+      files: ["lib", "mix.exs", "README.md", "LICENSE", "VERSION"]
     }
   end
 end
